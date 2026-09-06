@@ -44,4 +44,7 @@ def chat(data: dict, x_buzzbot_key: str = Header(default="")):
         return {"answer": ai_response}
         
     except Exception as e:
+        # If response exists, return its raw error text to debug
+        if 'response' in locals() and hasattr(response, 'text'):
+            return {"answer": f"Groq Error Detail: {response.text}"}
         return {"answer": f"Cloud AI Service Error: {str(e)}"}
