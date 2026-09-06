@@ -36,9 +36,9 @@ def chat(data: dict, x_buzzbot_key: str = Header(default="")):
             "messages": [{"role": "user", "content": question}]
         }
         
-        response = requests.post(url, json=payload, headers=headers)
+        # Explicitly enforce a clean POST request without trailing data paths
+        response = requests.post(url, json=payload, headers=headers, timeout=10)
         
-        # Check if Groq gave a bad HTTP response (e.g. 401, 400)
         if response.status_code != 200:
             return {"answer": f"Groq HTTP Error {response.status_code}: {response.text}"}
             
