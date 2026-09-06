@@ -26,7 +26,7 @@ def chat(data: dict, x_buzzbot_key: str = Header(default="")):
 
     # 2. Forward the request to Groq Cloud infrastructure
     try:
-       url = "https://groq.com"
+        url = "https://groq.com"
         headers = {
             "Authorization": f"Bearer {GROQ_API_KEY}",
             "Content-Type": "application/json"
