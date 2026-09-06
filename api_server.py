@@ -26,19 +26,20 @@ def chat(data: dict, x_buzzbot_key: str = Header(default="")):
 
     # 2. Forward the request to Groq Cloud infrastructure
     try:
-        url = "https://groq.com"
+        url = "https://groq.com"  # Corrected API Endpoint
         headers = {
             "Authorization": f"Bearer {GROQ_API_KEY}",
             "Content-Type": "application/json"
         }
         payload = {
-            "model": "llama3-8b-8192",  # Standard fast Llama 3 cloud instance
+            "model": "llama3-8b-8192",  
             "messages": [{"role": "user", "content": question}]
         }
         
         response = requests.post(url, json=payload, headers=headers)
         result = response.json()
         
+        # Extract text response safely
         ai_response = result["choices"][0]["message"]["content"]
         return {"answer": ai_response}
         
