@@ -1,3 +1,19 @@
+from fastapi import FastAPI, Header, HTTPException
+import requests
+import os
+
+app = FastAPI()
+
+# Security token fetched from Render environment variables
+API_SECRET = os.environ.get("BUZZBOT_SECRET", "Buzzbot-Milon-2026-ChangeMe")
+
+# Groq API key fetched securely from Render environment variables
+GROQ_API_KEY = os.environ.get("GROQ_API_KEY")
+
+@app.get("/")
+def home():
+    return {"status": "Buzzbot API is running successfully"}
+
 @app.post("/chat")
 def chat(data: dict, x_buzzbot_key: str = Header(default="")):
     # 1. Security Authorization Check
