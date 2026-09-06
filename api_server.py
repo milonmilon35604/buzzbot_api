@@ -22,7 +22,7 @@ def chat(data: dict, x_buzzbot_key: str = Header(default="")):
         
     question = data.get("question", "").strip()
     if not question:
-        return {"response": "Please ask a question."}
+        return {"answer": "Please ask a question."}
 
     # 2. Forward the request to Groq Cloud infrastructure
     try:
@@ -39,8 +39,8 @@ def chat(data: dict, x_buzzbot_key: str = Header(default="")):
         response = requests.post(url, json=payload, headers=headers)
         result = response.json()
         
-        ai_response = result["choices"]["message"]["content"]
-        return {"response": ai_response}
+        ai_response = result["choices"][0]["message"]["content"]
+        return {"answer": ai_response}
         
     except Exception as e:
-        return {"response": f"Cloud AI Service Error: {str(e)}"}
+        return {"answer": f"Cloud AI Service Error: {str(e)}"}
